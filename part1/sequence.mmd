@@ -1,0 +1,36 @@
+---
+id: 99d88f53-756a-41c6-be51-1dcdb5bf9834
+config:
+  theme: elk
+  layout: elk
+  flowchart:
+    defaultRenderer: "elk"
+---
+sequenceDiagram
+    box User & API
+    participant User
+    participant API
+    end
+    box API Workers & Request Workers
+    participant APIWorkers as API Workers
+    participant RequestWorkers as Request Workers
+    end
+    box Business Logic & Database
+    participant DB
+    participant BusinessLogic as Business Logic
+    end
+    
+    User->>API: Send request
+    API->>APIWorkers: Handle request
+    APIWorkers->>RequestWorkers: Forward request
+
+    critical Business Logic Processing
+        RequestWorkers->>BusinessLogic: Process request
+        BusinessLogic->>DB: Query data
+        DB-->>BusinessLogic: Return data
+        BusinessLogic-->>RequestWorkers: Send response
+    end
+    
+    RequestWorkers-->>APIWorkers: Forward response
+    APIWorkers-->>API: Return result
+    API-->>User: Return result

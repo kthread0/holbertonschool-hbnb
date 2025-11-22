@@ -1,2 +1,3 @@
-# holbertonschool-hbnb
-HBnH Project
+# HBnH Project
+
+AirBnB-like project

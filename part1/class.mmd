@@ -1,0 +1,50 @@
+---
+id: 99d88f53-756a-41c6-be51-1dcdb5bf9834
+config:
+  theme: elk
+  layout: elk
+  flowchart:
+    defaultRenderer: "elk"
+---
+classDiagram
+    class Users {
+        +string name
+        +string username
+        +int id
+        +string email
+        +string password
+        +string[] permissions
+        +Date registerDate
+        +bool admin
+        +void register(email, password)
+        +void login(email, password)
+    }
+    class Listings {
+        +int id
+        +string address
+        +int capacity
+        +string name
+        +string details
+        +float pricePerNight
+        +bool availability
+        +void createListing(owner, address, capacity, name, details, pricePerNight)
+        +void updateListing(listingId, updatedInfo)
+        +void deleteListing(listingId)
+    }
+    class Reserves {
+        +int id
+        +int guestId
+        +int listingId
+        +Date startDate
+        +Date endDate
+        +float totalPrice
+        +string status
+        +string paymentStatus
+        +void createReservation(guestId, listingId, dates)
+        +void processPayment(amount)
+        +void refundPayment(amount)
+    }
+
+    Users *-- Listings : owns
+    Users --> Reserves : books 
+    Listings --> Reserves : has
