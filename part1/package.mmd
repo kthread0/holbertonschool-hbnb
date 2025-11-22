@@ -1,0 +1,26 @@
+---
+id: 99d88f53-756a-41c6-be51-1dcdb5bf9834
+config:
+  theme: elk
+  layout: elk
+  flowchart:
+    defaultRenderer: "elk"
+---
+classDiagram
+    class PresentationLayer {
+        <<interface>>
+        +API
+        +APIWorkers
+    }
+    class BusinessLogicLayer {
+        +RequestWorkers
+        +Users
+        +Listings
+        +Reserves
+    }
+    class PersistenceLayer {
+        +DB
+    }
+
+    PresentationLayer --> BusinessLogicLayer : Facade
+    BusinessLogicLayer --> PersistenceLayer : Database
